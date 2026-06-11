@@ -361,4 +361,13 @@
         33% { transform: translate(20px, -20px) scale(1.05); }
         66% { transform: translate(-15px, 15px) scale(0.95); }
     }
+
+    /* Cubiq liquid glass nav bubble pills */
+    .nav-bubble-pill {
+        will-change: transform, opacity;
+        transform-origin: center;
+        transition:
+            transform 1s linear(0, 0.038 1.6%, 0.154 3.4%, 1.026 12.6%, 1.166 15.2%, 1.234 18%, 1.221 21.6%, 1.005 31.2%, 0.944 37%, 1.013 56%, 1),
+            opacity 0.25s ease-out;
+    }
 }

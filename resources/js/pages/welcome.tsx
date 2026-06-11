@@ -46,6 +46,8 @@ export default function Welcome() {
     const imagesRef = useRef<HTMLImageElement[]>([]);
     const [loadedCount, setLoadedCount] = useState(0);
     const [allLoaded, setAllLoaded] = useState(false);
+    const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+    const NAV_ITEMS = ['Home', 'Pricing', 'Facilities', 'Location', 'Contact'];
 
     useEffect(() => {
         if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
@@ -115,6 +117,14 @@ export default function Welcome() {
 
             {/* SVG Filter Definitions */}
             <svg className="absolute opacity-0 pointer-events-none" width="0" height="0" colorInterpolationFilters="sRGB">
+                {/* Liquid bubble merge filter */}
+                <filter id="round">
+                    <feGaussianBlur in="SourceGraphic" stdDeviation="8" />
+                    <feComponentTransfer result="threshold">
+                        <feFuncA type="gamma" amplitude="80" exponent="10" offset="-2" />
+                    </feComponentTransfer>
+                    <feComposite in="SourceGraphic" operator="atop" />
+                </filter>
                 <filter id="pack-upper">
                     <feColorMatrix type="matrix" values="0.4980392156862745 0 0 0 0 0 0.4980392156862745 0 0 0 0 0 0.4980392156862745 0 0 0 0 0 1 0" result="quantized" />
                     <feComposite in="quantized" operator="over" result="composited" />
@@ -199,9 +209,33 @@ export default function Welcome() {
                         <span className="grid h-9 w-9 place-items-center rounded-full border border-white/20 bg-white/15 shadow-inner">K</span>
                         <span className="hidden sm:block">Kos Premium</span>
                     </a>
-                    <div className="hidden items-center gap-1 rounded-full border border-white/10 bg-black/10 p-1 md:flex">
-                        {['Home','Pricing','Facilities','Location','Contact'].map((item) => (
-                            <a key={item} href={`#${item.toLowerCase()}`} className="rounded-full px-4 py-2 text-sm font-medium text-white/80 no-underline transition hover:bg-white/15 hover:text-white">{item}</a>
+                    <div className="hidden items-center rounded-full border border-white/10 bg-black/10 p-1 md:flex" style={{ position: 'relative' }}>
+                        {/* Liquid glass bubble layer — transparent refraction, only shown on hover */}
+                        <div className="absolute inset-0 flex items-center p-1 pointer-events-none" aria-hidden>
+                            {NAV_ITEMS.map((item) => (
+                                <div key={item} className="nav-bubble-pill flex-none rounded-full px-4 py-2 text-sm font-medium"
+                                    style={{
+                                        color: 'transparent',
+                                        transform: hoveredNav === item ? 'scale(1.12)' : 'scale(0.01)',
+                                        opacity: hoveredNav === item ? 1 : 0,
+                                        backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(8px) saturate(1.4)',
+                                        WebkitBackdropFilter: 'blur(8px) saturate(1.4)',
+                                        border: '1px solid rgba(255,255,255,0.30)',
+                                        boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -1px 0 rgba(255,255,255,0.10), 0 6px 18px rgba(0,0,0,0.18)',
+                                    }}>
+                                    {item}
+                                </div>
+                            ))}
+                        </div>
+                        {/* Text layer — unfiltered, always visible */}
+                        {NAV_ITEMS.map((item) => (
+                            <a key={item} href={`#${item.toLowerCase()}`}
+                                className="relative z-10 flex-none rounded-full px-4 py-2 text-sm font-medium no-underline transition-colors duration-150 select-none"
+                                style={{ color: hoveredNav === item ? '#ffffff' : 'rgba(255,255,255,0.78)' }}
+                                onMouseEnter={() => setHoveredNav(item)}
+                                onMouseLeave={() => setHoveredNav(null)}>
+                                {item}
+                            </a>
                         ))}
                     </div>
                     <div className="flex items-center gap-2">
