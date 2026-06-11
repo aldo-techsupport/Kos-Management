@@ -48,6 +48,9 @@ export default function Welcome() {
     const [allLoaded, setAllLoaded] = useState(false);
     const [hoveredNav, setHoveredNav] = useState<string | null>(null);
     const [activeNav, setActiveNav] = useState<string>('Home');
+    const [isMobile, setIsMobile] = useState(false);
+    // On mobile, drop the heavy SVG refraction filters from content cards/buttons (navbar untouched)
+    const glass = (filter: string) => (isMobile ? filter.replace(/url\(#[^)]*\)\s*/g, '').trim() : filter);
     const NAV_ITEMS = ['Home', 'Pricing', 'Facilities', 'Location', 'Contact'];
     const NAV_ICONS: Record<string, ReactNode> = {
         Home: <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10" />,
@@ -61,6 +64,14 @@ export default function Welcome() {
         if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
         window.scrollTo(0, 0);
         return () => { if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'auto'; };
+    }, []);
+
+    useEffect(() => {
+        const mq = window.matchMedia('(max-width: 767px)');
+        const update = () => setIsMobile(mq.matches);
+        update();
+        mq.addEventListener('change', update);
+        return () => mq.removeEventListener('change', update);
     }, []);
 
     useEffect(() => {
@@ -102,18 +113,29 @@ export default function Welcome() {
         cnv.height = first.naturalHeight;
         ctx.drawImage(first, 0, 0);
 
-        const onScroll = () => {
+        let rafId = 0;
+        let lastIdx = -1;
+        const render = () => {
+            rafId = 0;
             const rect = ct.getBoundingClientRect();
             const sh = ct.offsetHeight - window.innerHeight;
             const scrolled = -rect.top;
             const prog = Math.min(Math.max(scrolled / sh, 0), 1);
             const idx = Math.min(Math.floor(prog * TOTAL_FRAMES), TOTAL_FRAMES - 1);
+            if (idx === lastIdx) return;          // skip redundant redraws
+            lastIdx = idx;
             const img = imagesRef.current[idx];
             if (img) { ctx.clearRect(0, 0, cnv.width, cnv.height); ctx.drawImage(img, 0, 0); }
         };
+        const onScroll = () => {
+            if (!rafId) rafId = requestAnimationFrame(render);   // batch per frame
+        };
         window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-        return () => window.removeEventListener('scroll', onScroll);
+        render();
+        return () => {
+            window.removeEventListener('scroll', onScroll);
+            if (rafId) cancelAnimationFrame(rafId);
+        };
     }, [allLoaded]);
 
     const btnGlass = 'backdrop-filter-[url(#pack-upper)] after:content-[\'\'] after:absolute after:inset-0 after:pointer-events-none after:backdrop-filter-[url(#liquid-glass-new)_url(#fresnel)]';
@@ -308,12 +330,12 @@ export default function Welcome() {
                             <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
                                 <a href={`https://wa.me/${PHONE_NUMBER}`} target="_blank" rel="noopener noreferrer"
                                     className="liquid-glass-btn relative isolate overflow-hidden rounded-full bg-white px-7 py-3.5 font-bold text-neutral-950 no-underline shadow-xl transition hover:scale-105 hover:bg-amber-100"
-                                    style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(14px)' }}>
+                                    style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(14px)') }}>
                                     <span className="relative z-10">Konsultasi via WhatsApp</span>
                                 </a>
                                 <a href="#pricing"
                                     className="liquid-glass-btn relative isolate overflow-hidden rounded-full border border-white/25 bg-white/10 px-7 py-3.5 font-bold text-white no-underline transition hover:scale-105 hover:bg-white/20"
-                                    style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(14px)' }}>
+                                    style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(14px)') }}>
                                     <span className="relative z-10">Lihat Penawaran</span>
                                 </a>
                             </div>
@@ -323,7 +345,7 @@ export default function Welcome() {
                     <div className="mx-auto max-w-7xl space-y-28 px-5 pb-32 pt-[25vh] md:px-8 lg:px-10">
                         {/* Facilities */}
                         <section id="facilities" className="grid items-center gap-8 lg:grid-cols-[0.95fr_1.05fr]">
-                            <div className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)]" style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)' }}>
+                            <div className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)]" style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)') }}>
                                 <div className="relative z-10">
                                     <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-amber-200/90">Facilities</p>
                                     <h2 className="mb-4 text-3xl font-black tracking-tight md:text-5xl">Fasilitas bikin penghuni betah.</h2>
@@ -337,7 +359,7 @@ export default function Welcome() {
                                     ['🚿','Kamar Mandi Dalam','Privasi lebih baik, nilai sewa lebih tinggi.'],
                                     ['🛡️','Keamanan 24 Jam','CCTV dan akses terkontrol untuk penghuni.'],
                                 ].map(([icon, title, desc]) => (
-                                    <div key={title} className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-5 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)]" style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)' }}>
+                                    <div key={title} className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-5 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)]" style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)') }}>
                                         <div className="relative z-10">
                                             <div className="mb-3 text-3xl">{icon}</div>
                                             <h3 className="mb-2 text-lg font-bold">{title}</h3>
@@ -352,7 +374,7 @@ export default function Welcome() {
                         <section id="location" className="grid items-center gap-8 lg:grid-cols-[1.05fr_0.95fr]">
                             <div className="order-2 grid gap-4 sm:grid-cols-3 lg:order-1">
                                 {[['5 Menit','ke pusat aktivitas'],['95%','target okupansi'],['24/7','area aman']].map(([value,label]) => (
-                                    <div key={label} className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-5 text-center text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)]" style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)' }}>
+                                    <div key={label} className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-5 text-center text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)]" style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)') }}>
                                         <div className="relative z-10">
                                             <div className="text-4xl font-black text-amber-200">{value}</div>
                                             <div className="mt-2 text-sm text-white/70">{label}</div>
@@ -360,7 +382,7 @@ export default function Welcome() {
                                     </div>
                                 ))}
                             </div>
-                            <div className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)] order-1 lg:order-2" style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)' }}>
+                            <div className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)] order-1 lg:order-2" style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)') }}>
                                 <div className="relative z-10">
                                     <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-amber-200/90">Location</p>
                                     <h2 className="mb-4 text-3xl font-black tracking-tight md:text-5xl">Dekat demand, dekat profit.</h2>
@@ -371,7 +393,7 @@ export default function Welcome() {
 
                         {/* Pricing */}
                         <section id="pricing" className="grid gap-6 lg:grid-cols-3">
-                            <div className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)] lg:col-span-1" style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)' }}>
+                            <div className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)] lg:col-span-1" style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)') }}>
                                 <div className="relative z-10">
                                     <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-amber-200/90">Pricing</p>
                                     <h2 className="mb-4 text-3xl font-black tracking-tight md:text-4xl">Paket penawaran fleksibel.</h2>
@@ -382,14 +404,14 @@ export default function Welcome() {
                                 ['Basic Info','Mulai dari','Hubungi Kami',['Detail lokasi','Foto/video properti','Simulasi sewa']],
                                 ['Investor Pack','Penawaran','Terbaik',['Proyeksi income','Data okupansi','Skema pembayaran']],
                             ].map(([name,prefix,price,list]) => (
-                                <div key={name} className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)] flex flex-col" style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)' }}>
+                                <div key={name} className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)] flex flex-col" style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)') }}>
                                     <div className="relative z-10 flex flex-col h-full">
                                         <h3 className="text-xl font-bold">{name}</h3>
                                         <div className="my-5"><div className="text-sm text-white/60">{prefix as string}</div><div className="text-4xl font-black text-amber-200">{price as string}</div></div>
                                         <ul className="mb-7 space-y-3 text-white/75">{(list as string[]).map((item) => (<li key={item} className="flex gap-3"><span className="text-amber-200">✓</span>{item}</li>))}</ul>
                                         <a href={`https://wa.me/${PHONE_NUMBER}`} target="_blank" rel="noopener noreferrer"
                                             className="liquid-glass-btn mt-auto relative isolate overflow-hidden rounded-full border border-white/25 bg-white/15 px-5 py-3 text-center font-bold text-white no-underline transition hover:bg-white/25"
-                                            style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(10px)' }}>
+                                            style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(10px)') }}>
                                             <span className="relative z-10">Tanya Detail</span>
                                         </a>
                                     </div>
@@ -399,7 +421,7 @@ export default function Welcome() {
 
                         {/* Contact */}
                         <section id="contact" className="pb-[45vh]">
-                            <div className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)] mx-auto max-w-4xl text-center" style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)' }}>
+                            <div className="liquid-glass-card relative isolate overflow-hidden rounded-[2rem] border border-white/25 p-7 text-white shadow-[0_18px_60px_rgba(0,0,0,0.25)] mx-auto max-w-4xl text-center" style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(20px) saturate(1.6)') }}>
                                 <div className="relative z-10">
                                     <p className="mb-3 text-sm font-bold uppercase tracking-[0.28em] text-amber-200/90">Contact</p>
                                     <h2 className="mb-4 text-3xl font-black tracking-tight md:text-5xl">Siap lihat detail properti?</h2>
@@ -407,12 +429,12 @@ export default function Welcome() {
                                     <div className="flex flex-col justify-center gap-3 sm:flex-row">
                                         <a href={`https://wa.me/${PHONE_NUMBER}`} target="_blank" rel="noopener noreferrer"
                                             className="liquid-glass-btn relative isolate overflow-hidden rounded-full bg-green-500/85 px-8 py-4 font-black text-white no-underline shadow-xl transition hover:scale-105 hover:bg-green-500"
-                                            style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(12px)' }}>
+                                            style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(12px)') }}>
                                             <span className="relative z-10">WhatsApp Sekarang</span>
                                         </a>
                                         <a href={`tel:+${PHONE_NUMBER}`}
                                             className="liquid-glass-btn relative isolate overflow-hidden rounded-full border border-white/25 bg-white/10 px-8 py-4 font-black text-white no-underline transition hover:scale-105 hover:bg-white/20"
-                                            style={{ backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(12px)' }}>
+                                            style={{ backdropFilter: glass('url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(12px)') }}>
                                             <span className="relative z-10">Telepon</span>
                                         </a>
                                     </div>
