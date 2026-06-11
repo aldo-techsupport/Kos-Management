@@ -59,61 +59,56 @@ export default function Security(props: Props) {
                     {({ errors, processing }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="current_password">
+                                <Label htmlFor="current_password" className="text-sm font-medium text-foreground/80 dark:text-white/80">
                                     Current password
                                 </Label>
-
                                 <PasswordInput
                                     id="current_password"
                                     ref={currentPasswordInput}
                                     name="current_password"
-                                    className="mt-1 block w-full"
+                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
                                     autoComplete="current-password"
                                     placeholder="Current password"
                                 />
-
                                 <InputError message={errors.current_password} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password">New password</Label>
-
+                                <Label htmlFor="password" className="text-sm font-medium text-foreground/80 dark:text-white/80">
+                                    New password
+                                </Label>
                                 <PasswordInput
                                     id="password"
                                     ref={passwordInput}
                                     name="password"
-                                    className="mt-1 block w-full"
+                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
                                     autoComplete="new-password"
                                     placeholder="New password"
                                     passwordrules={props.passwordRules}
                                 />
-
                                 <InputError message={errors.password} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
+                                <Label htmlFor="password_confirmation" className="text-sm font-medium text-foreground/80 dark:text-white/80">
                                     Confirm password
                                 </Label>
-
                                 <PasswordInput
                                     id="password_confirmation"
                                     name="password_confirmation"
-                                    className="mt-1 block w-full"
+                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
                                     autoComplete="new-password"
                                     placeholder="Confirm password"
                                     passwordrules={props.passwordRules}
                                 />
-
-                                <InputError
-                                    message={errors.password_confirmation}
-                                />
+                                <InputError message={errors.password_confirmation} />
                             </div>
 
                             <div className="flex items-center gap-4">
                                 <Button
                                     disabled={processing}
                                     data-test="update-password-button"
+                                    className="liquid-glass-btn-primary h-10 rounded-xl border-0 px-6 text-sm font-semibold shadow-none"
                                 >
                                     Save
                                 </Button>

@@ -47,53 +47,47 @@ export default function Profile({
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
-
+                                <Label htmlFor="name" className="text-sm font-medium text-foreground/80 dark:text-white/80">
+                                    Name
+                                </Label>
                                 <Input
                                     id="name"
-                                    className="mt-1 block w-full"
+                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
                                     defaultValue={auth.user.name}
                                     name="name"
                                     required
                                     autoComplete="name"
                                     placeholder="Full name"
                                 />
-
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.name}
-                                />
+                                <InputError className="mt-1" message={errors.name} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
-
+                                <Label htmlFor="email" className="text-sm font-medium text-foreground/80 dark:text-white/80">
+                                    Email address
+                                </Label>
                                 <Input
                                     id="email"
                                     type="email"
-                                    className="mt-1 block w-full"
+                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
                                     defaultValue={auth.user.email}
                                     name="email"
                                     required
                                     autoComplete="username"
                                     placeholder="Email address"
                                 />
-
-                                <InputError
-                                    className="mt-2"
-                                    message={errors.email}
-                                />
+                                <InputError className="mt-1" message={errors.email} />
                             </div>
 
                             {mustVerifyEmail &&
                                 auth.user.email_verified_at === null && (
                                     <div>
-                                        <p className="-mt-4 text-sm text-muted-foreground">
+                                        <p className="-mt-4 text-sm text-foreground/60 dark:text-white/60">
                                             Your email address is unverified.{' '}
                                             <Link
                                                 href={send()}
                                                 as="button"
-                                                className="text-foreground underline decoration-neutral-300 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current! dark:decoration-neutral-500"
+                                                className="text-foreground dark:text-white underline decoration-foreground/30 dark:decoration-white/30 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current"
                                             >
                                                 Click here to re-send the
                                                 verification email.
@@ -102,7 +96,7 @@ export default function Profile({
 
                                         {status ===
                                             'verification-link-sent' && (
-                                            <div className="mt-2 text-sm font-medium text-green-600">
+                                            <div className="mt-2 text-sm font-medium text-emerald-600 dark:text-emerald-300/80">
                                                 A new verification link has been
                                                 sent to your email address.
                                             </div>
@@ -114,6 +108,7 @@ export default function Profile({
                                 <Button
                                     disabled={processing}
                                     data-test="update-profile-button"
+                                    className="liquid-glass-btn-primary h-10 rounded-xl border-0 px-6 text-sm font-semibold shadow-none"
                                 >
                                     Save
                                 </Button>

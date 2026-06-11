@@ -24,59 +24,57 @@ export default function ResetPassword({ token, email, passwordRules }: Props) {
                 resetOnSuccess={['password', 'password_confirmation']}
             >
                 {({ processing, errors }) => (
-                    <div className="grid gap-6">
+                    <div className="grid gap-5">
                         <div className="grid gap-2">
-                            <Label htmlFor="email">Email</Label>
+                            <Label htmlFor="email" className="text-sm font-medium text-white/80">
+                                Email
+                            </Label>
                             <Input
                                 id="email"
                                 type="email"
                                 name="email"
                                 autoComplete="email"
                                 value={email}
-                                className="mt-1 block w-full"
                                 readOnly
+                                className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white/60 placeholder:text-white/40 focus-visible:ring-0"
                             />
-                            <InputError
-                                message={errors.email}
-                                className="mt-2"
-                            />
+                            <InputError message={errors.email} className="mt-1" />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password">Password</Label>
+                            <Label htmlFor="password" className="text-sm font-medium text-white/80">
+                                Password
+                            </Label>
                             <PasswordInput
                                 id="password"
                                 name="password"
                                 autoComplete="new-password"
-                                className="mt-1 block w-full"
                                 autoFocus
                                 placeholder="Password"
                                 passwordrules={passwordRules}
+                                className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
                             />
                             <InputError message={errors.password} />
                         </div>
 
                         <div className="grid gap-2">
-                            <Label htmlFor="password_confirmation">
+                            <Label htmlFor="password_confirmation" className="text-sm font-medium text-white/80">
                                 Confirm password
                             </Label>
                             <PasswordInput
                                 id="password_confirmation"
                                 name="password_confirmation"
                                 autoComplete="new-password"
-                                className="mt-1 block w-full"
                                 placeholder="Confirm password"
                                 passwordrules={passwordRules}
+                                className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
                             />
-                            <InputError
-                                message={errors.password_confirmation}
-                                className="mt-2"
-                            />
+                            <InputError message={errors.password_confirmation} className="mt-1" />
                         </div>
 
                         <Button
                             type="submit"
-                            className="mt-4 w-full"
+                            className="liquid-glass-btn-primary mt-2 h-11 w-full rounded-2xl border-0 text-sm font-semibold shadow-none"
                             disabled={processing}
                             data-test="reset-password-button"
                         >

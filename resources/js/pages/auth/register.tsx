@@ -21,13 +21,15 @@ export default function Register({ passwordRules }: Props) {
                 {...store.form()}
                 resetOnSuccess={['password', 'password_confirmation']}
                 disableWhileProcessing
-                className="flex flex-col gap-6"
+                className="flex flex-col gap-5"
             >
                 {({ processing, errors }) => (
                     <>
-                        <div className="grid gap-6">
+                        <div className="grid gap-5">
                             <div className="grid gap-2">
-                                <Label htmlFor="name">Name</Label>
+                                <Label htmlFor="name" className="text-sm font-medium text-white/80">
+                                    Name
+                                </Label>
                                 <Input
                                     id="name"
                                     type="text"
@@ -37,15 +39,15 @@ export default function Register({ passwordRules }: Props) {
                                     autoComplete="name"
                                     name="name"
                                     placeholder="Full name"
+                                    className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
                                 />
-                                <InputError
-                                    message={errors.name}
-                                    className="mt-2"
-                                />
+                                <InputError message={errors.name} className="mt-1" />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="email" className="text-sm font-medium text-white/80">
+                                    Email address
+                                </Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -54,12 +56,15 @@ export default function Register({ passwordRules }: Props) {
                                     autoComplete="email"
                                     name="email"
                                     placeholder="email@example.com"
+                                    className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password">Password</Label>
+                                <Label htmlFor="password" className="text-sm font-medium text-white/80">
+                                    Password
+                                </Label>
                                 <PasswordInput
                                     id="password"
                                     required
@@ -68,12 +73,13 @@ export default function Register({ passwordRules }: Props) {
                                     name="password"
                                     placeholder="Password"
                                     passwordrules={passwordRules}
+                                    className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
                                 />
                                 <InputError message={errors.password} />
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation">
+                                <Label htmlFor="password_confirmation" className="text-sm font-medium text-white/80">
                                     Confirm password
                                 </Label>
                                 <PasswordInput
@@ -84,15 +90,14 @@ export default function Register({ passwordRules }: Props) {
                                     name="password_confirmation"
                                     placeholder="Confirm password"
                                     passwordrules={passwordRules}
+                                    className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
                                 />
-                                <InputError
-                                    message={errors.password_confirmation}
-                                />
+                                <InputError message={errors.password_confirmation} />
                             </div>
 
                             <Button
                                 type="submit"
-                                className="mt-2 w-full"
+                                className="liquid-glass-btn-primary mt-2 h-11 w-full rounded-2xl border-0 text-sm font-semibold shadow-none"
                                 tabIndex={5}
                                 data-test="register-user-button"
                             >
@@ -101,9 +106,9 @@ export default function Register({ passwordRules }: Props) {
                             </Button>
                         </div>
 
-                        <div className="text-center text-sm text-muted-foreground">
+                        <div className="text-center text-sm text-white/50">
                             Already have an account?{' '}
-                            <TextLink href={login()} tabIndex={6}>
+                            <TextLink href={login()} tabIndex={6} className="text-white/80 hover:text-white">
                                 Log in
                             </TextLink>
                         </div>

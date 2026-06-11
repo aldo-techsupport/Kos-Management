@@ -15,7 +15,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
             <Head title="Forgot password" />
 
             {status && (
-                <div className="mb-4 text-center text-sm font-medium text-green-600">
+                <div className="mb-4 text-center text-sm font-medium text-emerald-300/80">
                     {status}
                 </div>
             )}
@@ -25,7 +25,9 @@ export default function ForgotPassword({ status }: { status?: string }) {
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="email">Email address</Label>
+                                <Label htmlFor="email" className="text-sm font-medium text-white/80">
+                                    Email address
+                                </Label>
                                 <Input
                                     id="email"
                                     type="email"
@@ -33,6 +35,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                                     autoComplete="off"
                                     autoFocus
                                     placeholder="email@example.com"
+                                    className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
                                 />
 
                                 <InputError message={errors.email} />
@@ -40,7 +43,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
 
                             <div className="my-6 flex items-center justify-start">
                                 <Button
-                                    className="w-full"
+                                    className="liquid-glass-btn-primary h-11 w-full rounded-2xl border-0 text-sm font-semibold shadow-none"
                                     disabled={processing}
                                     data-test="email-password-reset-link-button"
                                 >
@@ -54,9 +57,11 @@ export default function ForgotPassword({ status }: { status?: string }) {
                     )}
                 </Form>
 
-                <div className="space-x-1 text-center text-sm text-muted-foreground">
+                <div className="space-x-1 text-center text-sm text-white/50">
                     <span>Or, return to</span>
-                    <TextLink href={login()}>log in</TextLink>
+                    <TextLink href={login()} className="text-white/80 hover:text-white">
+                        log in
+                    </TextLink>
                 </div>
             </div>
         </>
