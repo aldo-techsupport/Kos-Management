@@ -1,5 +1,5 @@
 import { Head } from '@inertiajs/react';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 
 const TOTAL_FRAMES = 89;
 const PHONE_NUMBER = '62XXXXXXXXXXX';
@@ -47,7 +47,15 @@ export default function Welcome() {
     const [loadedCount, setLoadedCount] = useState(0);
     const [allLoaded, setAllLoaded] = useState(false);
     const [hoveredNav, setHoveredNav] = useState<string | null>(null);
+    const [activeNav, setActiveNav] = useState<string>('Home');
     const NAV_ITEMS = ['Home', 'Pricing', 'Facilities', 'Location', 'Contact'];
+    const NAV_ICONS: Record<string, ReactNode> = {
+        Home: <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z M9 22V12h6v10" />,
+        Pricing: <><path d="M12 2v20" /><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6" /></>,
+        Facilities: <><path d="M3 21h18M5 21V7l8-4v18M19 21V11l-6-4" /><path d="M9 9v.01M9 12v.01M9 15v.01M9 18v.01" /></>,
+        Location: <><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" /><circle cx="12" cy="10" r="3" /></>,
+        Contact: <path d="M7.9 20A9 9 0 1 0 4 16.1L2 22Z" />,
+    };
 
     useEffect(() => {
         if ('scrollRestoration' in window.history) window.history.scrollRestoration = 'manual';
@@ -244,6 +252,34 @@ export default function Welcome() {
                     </div>
                 </nav>
             </header>
+
+            {/* Mobile bottom navigation — icons only */}
+            <nav className="fixed inset-x-0 bottom-0 z-40 px-4 pb-[max(1rem,env(safe-area-inset-bottom))] pt-2 md:hidden">
+                <div className="mx-auto flex max-w-md items-center justify-around rounded-full border border-white/20 bg-white/[0.10] px-2 py-2 text-white shadow-[0_12px_40px_rgba(0,0,0,0.30),inset_0_1px_0_rgba(255,255,255,0.35)]" style={{ backdropFilter: 'url(#pack-upper) blur(20px) saturate(1.8)' }}>
+                    {NAV_ITEMS.map((item) => (
+                        <a key={item} href={`#${item.toLowerCase()}`}
+                            onClick={() => setActiveNav(item)}
+                            className="relative flex flex-1 flex-col items-center gap-1 rounded-2xl px-1 py-1.5 no-underline transition active:scale-90"
+                            style={{ color: activeNav === item ? '#ffffff' : 'rgba(255,255,255,0.7)' }}
+                            aria-label={item}>
+                            {/* Liquid glass bubble behind active item */}
+                            <span className="nav-bubble-pill pointer-events-none absolute inset-0 rounded-2xl"
+                                style={{
+                                    transform: activeNav === item ? 'scale(1)' : 'scale(0.6)',
+                                    opacity: activeNav === item ? 1 : 0,
+                                    backdropFilter: 'url(#pack-upper) url(#liquid-glass-new) url(#fresnel) blur(8px) saturate(1.4)',
+                                    WebkitBackdropFilter: 'blur(8px) saturate(1.4)',
+                                    border: '1px solid rgba(255,255,255,0.30)',
+                                    boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.45), inset 0 -1px 0 rgba(255,255,255,0.10), 0 6px 18px rgba(0,0,0,0.18)',
+                                }} />
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="relative z-10 h-6 w-6">
+                                {NAV_ICONS[item]}
+                            </svg>
+                            <span className="relative z-10 text-[10px] font-medium leading-none">{item}</span>
+                        </a>
+                    ))}
+                </div>
+            </nav>
 
             {!allLoaded && (
                 <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-neutral-950">
