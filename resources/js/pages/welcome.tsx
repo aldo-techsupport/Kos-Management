@@ -99,6 +99,20 @@ function GlassNav() {
 }
 
 export default function Welcome() {
+    useEffect(() => {
+        if ('scrollRestoration' in window.history) {
+            window.history.scrollRestoration = 'manual';
+        }
+
+        window.scrollTo(0, 0);
+
+        return () => {
+            if ('scrollRestoration' in window.history) {
+                window.history.scrollRestoration = 'auto';
+            }
+        };
+    }, []);
+
     const canvasRef = useRef<HTMLCanvasElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     const imagesRef = useRef<HTMLImageElement[]>([]);
