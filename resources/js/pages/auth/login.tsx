@@ -33,7 +33,7 @@ export default function Login({ status, canResetPassword }: Props) {
                     <>
                         <div className="grid gap-5">
                             <div className="grid gap-2">
-                                <Label htmlFor="email" className="text-sm font-medium text-white/80">
+                                <Label htmlFor="email" className="text-sm font-medium text-foreground/80">
                                     Email address
                                 </Label>
                                 <Input
@@ -45,20 +45,20 @@ export default function Login({ status, canResetPassword }: Props) {
                                     tabIndex={1}
                                     autoComplete="email"
                                     placeholder="email@example.com"
-                                    className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
+                                    className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                 />
                                 <InputError message={errors.email} />
                             </div>
 
                             <div className="grid gap-2">
                                 <div className="flex items-center">
-                                    <Label htmlFor="password" className="text-sm font-medium text-white/80">
+                                    <Label htmlFor="password" className="text-sm font-medium text-foreground/80">
                                         Password
                                     </Label>
                                     {canResetPassword && (
                                         <TextLink
                                             href={request()}
-                                            className="ml-auto text-xs text-white/50 hover:text-white/80"
+                                            className="ml-auto text-xs text-foreground/50 hover:text-foreground/80"
                                             tabIndex={5}
                                         >
                                             Forgot your password?
@@ -72,7 +72,7 @@ export default function Login({ status, canResetPassword }: Props) {
                                     tabIndex={2}
                                     autoComplete="current-password"
                                     placeholder="Password"
-                                    className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
+                                    className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                 />
                                 <InputError message={errors.password} />
                             </div>
@@ -82,9 +82,9 @@ export default function Login({ status, canResetPassword }: Props) {
                                     id="remember"
                                     name="remember"
                                     tabIndex={3}
-                                    className="border-white/30 data-[state=checked]:bg-white/20 data-[state=checked]:border-white/40"
+                                    className="border-foreground/30 data-[state=checked]:bg-foreground/20 data-[state=checked]:border-foreground/40"
                                 />
-                                <Label htmlFor="remember" className="text-sm text-white/70">
+                                <Label htmlFor="remember" className="text-sm text-foreground/70">
                                     Remember me
                                 </Label>
                             </div>
@@ -101,9 +101,9 @@ export default function Login({ status, canResetPassword }: Props) {
                             </Button>
                         </div>
 
-                        <div className="text-center text-sm text-white/50">
+                        <div className="text-center text-sm text-foreground/50">
                             Don't have an account?{' '}
-                            <TextLink href={register()} tabIndex={5} className="text-white/80 hover:text-white">
+                            <TextLink href={register()} tabIndex={5} className="text-foreground/80 hover:text-foreground">
                                 Sign up
                             </TextLink>
                         </div>
@@ -112,7 +112,7 @@ export default function Login({ status, canResetPassword }: Props) {
             </Form>
 
             {status && (
-                <div className="mt-4 text-center text-sm font-medium text-emerald-300/80">
+                <div className="mt-4 text-center text-sm font-medium text-emerald-600">
                     {status}
                 </div>
             )}

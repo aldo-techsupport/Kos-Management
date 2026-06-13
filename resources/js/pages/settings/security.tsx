@@ -59,14 +59,14 @@ export default function Security(props: Props) {
                     {({ errors, processing }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="current_password" className="text-sm font-medium text-foreground/80 dark:text-white/80">
+                                <Label htmlFor="current_password" className="text-sm font-medium text-foreground/80">
                                     Current password
                                 </Label>
                                 <PasswordInput
                                     id="current_password"
                                     ref={currentPasswordInput}
                                     name="current_password"
-                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
+                                    className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                     autoComplete="current-password"
                                     placeholder="Current password"
                                 />
@@ -74,14 +74,14 @@ export default function Security(props: Props) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password" className="text-sm font-medium text-foreground/80 dark:text-white/80">
+                                <Label htmlFor="password" className="text-sm font-medium text-foreground/80">
                                     New password
                                 </Label>
                                 <PasswordInput
                                     id="password"
                                     ref={passwordInput}
                                     name="password"
-                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
+                                    className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                     autoComplete="new-password"
                                     placeholder="New password"
                                     passwordrules={props.passwordRules}
@@ -90,13 +90,13 @@ export default function Security(props: Props) {
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="password_confirmation" className="text-sm font-medium text-foreground/80 dark:text-white/80">
+                                <Label htmlFor="password_confirmation" className="text-sm font-medium text-foreground/80">
                                     Confirm password
                                 </Label>
                                 <PasswordInput
                                     id="password_confirmation"
                                     name="password_confirmation"
-                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
+                                    className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                     autoComplete="new-password"
                                     placeholder="Confirm password"
                                     passwordrules={props.passwordRules}

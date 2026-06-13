@@ -5,7 +5,6 @@
 @source '../views';
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 
-@custom-variant dark (&:is(.dark *));
 
 @theme {
     --font-sans:
@@ -97,40 +96,6 @@
     --sidebar-ring: oklch(0.87 0 0);
 }
 
-.dark {
-    --background: oklch(0.145 0 0);
-    --foreground: oklch(0.985 0 0);
-    --card: oklch(0.145 0 0);
-    --card-foreground: oklch(0.985 0 0);
-    --popover: oklch(0.145 0 0);
-    --popover-foreground: oklch(0.985 0 0);
-    --primary: oklch(0.985 0 0);
-    --primary-foreground: oklch(0.205 0 0);
-    --secondary: oklch(0.269 0 0);
-    --secondary-foreground: oklch(0.985 0 0);
-    --muted: oklch(0.269 0 0);
-    --muted-foreground: oklch(0.708 0 0);
-    --accent: oklch(0.269 0 0);
-    --accent-foreground: oklch(0.985 0 0);
-    --destructive: oklch(0.396 0.141 25.723);
-    --destructive-foreground: oklch(0.637 0.237 25.331);
-    --border: oklch(0.269 0 0);
-    --input: oklch(0.269 0 0);
-    --ring: oklch(0.439 0 0);
-    --chart-1: oklch(0.488 0.243 264.376);
-    --chart-2: oklch(0.696 0.17 162.48);
-    --chart-3: oklch(0.769 0.188 70.08);
-    --chart-4: oklch(0.627 0.265 303.9);
-    --chart-5: oklch(0.645 0.246 16.439);
-    --sidebar: oklch(0.205 0 0);
-    --sidebar-foreground: oklch(0.985 0 0);
-    --sidebar-primary: oklch(0.985 0 0);
-    --sidebar-primary-foreground: oklch(0.985 0 0);
-    --sidebar-accent: oklch(0.269 0 0);
-    --sidebar-accent-foreground: oklch(0.985 0 0);
-    --sidebar-border: oklch(0.269 0 0);
-    --sidebar-ring: oklch(0.439 0 0);
-}
 
 @layer base {
     * {
@@ -145,39 +110,6 @@
 /* === Liquid Glass iOS 26 Design System === */
 @layer components {
     .liquid-glass {
-        background: rgba(255, 255, 255, 0.08);
-        backdrop-filter: blur(40px) saturate(1.8);
-        -webkit-backdrop-filter: blur(40px) saturate(1.8);
-        border: 1px solid rgba(255, 255, 255, 0.2);
-        border-radius: 2rem;
-        box-shadow:
-            0 20px 60px rgba(0, 0, 0, 0.15),
-            inset 0 1px 0 rgba(255, 255, 255, 0.4),
-            inset 0 -1px 0 rgba(255, 255, 255, 0.1);
-        position: relative;
-    }
-
-    .liquid-glass::before {
-        content: '';
-        position: absolute;
-        inset: 0;
-        border-radius: inherit;
-        background:
-            radial-gradient(circle at 20% 0%, rgba(255, 255, 255, 0.3), transparent 35%),
-            linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.03) 45%, rgba(255, 255, 255, 0.1));
-        pointer-events: none;
-    }
-
-    .liquid-glass::after {
-        content: '';
-        position: absolute;
-        inset: 1px;
-        border-radius: inherit;
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        pointer-events: none;
-    }
-
-    .liquid-glass-light {
         background: rgba(255, 255, 255, 0.45);
         backdrop-filter: blur(40px) saturate(1.6);
         -webkit-backdrop-filter: blur(40px) saturate(1.6);
@@ -190,7 +122,7 @@
         position: relative;
     }
 
-    .liquid-glass-light::before {
+    .liquid-glass::before {
         content: '';
         position: absolute;
         inset: 0;
@@ -201,7 +133,7 @@
         pointer-events: none;
     }
 
-    .liquid-glass-light::after {
+    .liquid-glass::after {
         content: '';
         position: absolute;
         inset: 1px;
@@ -211,23 +143,6 @@
     }
 
     .liquid-glass-input {
-        background: rgba(255, 255, 255, 0.06);
-        backdrop-filter: blur(20px);
-        -webkit-backdrop-filter: blur(20px);
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        border-radius: 1rem;
-        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .liquid-glass-input:focus {
-        background: rgba(255, 255, 255, 0.1);
-        border-color: rgba(255, 255, 255, 0.35);
-        box-shadow:
-            0 0 0 3px rgba(255, 255, 255, 0.1),
-            0 8px 25px rgba(0, 0, 0, 0.1);
-    }
-
-    .liquid-glass-input-light {
         background: rgba(255, 255, 255, 0.5);
         backdrop-filter: blur(20px);
         -webkit-backdrop-filter: blur(20px);
@@ -236,7 +151,7 @@
         transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .liquid-glass-input-light:focus {
+    .liquid-glass-input:focus {
         background: rgba(255, 255, 255, 0.7);
         border-color: rgba(255, 255, 255, 0.8);
         box-shadow:
@@ -303,16 +218,7 @@
             inset 0 1px 0 rgba(255, 255, 255, 0.3);
     }
 
-    /* Animated gradient background for auth pages */
     .liquid-bg {
-        background:
-            radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.15), transparent 50%),
-            radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.12), transparent 50%),
-            radial-gradient(ellipse at 50% 80%, rgba(236, 72, 153, 0.1), transparent 50%),
-            linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-    }
-
-    .liquid-bg-light {
         background:
             radial-gradient(ellipse at 20% 50%, rgba(59, 130, 246, 0.08), transparent 50%),
             radial-gradient(ellipse at 80% 20%, rgba(168, 85, 247, 0.06), transparent 50%),

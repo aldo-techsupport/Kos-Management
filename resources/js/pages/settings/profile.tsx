@@ -47,12 +47,12 @@ export default function Profile({
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="name" className="text-sm font-medium text-foreground/80 dark:text-white/80">
+                                <Label htmlFor="name" className="text-sm font-medium text-foreground/80">
                                     Name
                                 </Label>
                                 <Input
                                     id="name"
-                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
+                                    className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                     defaultValue={auth.user.name}
                                     name="name"
                                     required
@@ -63,13 +63,13 @@ export default function Profile({
                             </div>
 
                             <div className="grid gap-2">
-                                <Label htmlFor="email" className="text-sm font-medium text-foreground/80 dark:text-white/80">
+                                <Label htmlFor="email" className="text-sm font-medium text-foreground/80">
                                     Email address
                                 </Label>
                                 <Input
                                     id="email"
                                     type="email"
-                                    className="liquid-glass-input-light dark:liquid-glass-input h-11 border-0 px-4 text-foreground dark:text-white placeholder:text-foreground/40 dark:placeholder:text-white/40 focus-visible:ring-0"
+                                    className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                     defaultValue={auth.user.email}
                                     name="email"
                                     required
@@ -82,12 +82,12 @@ export default function Profile({
                             {mustVerifyEmail &&
                                 auth.user.email_verified_at === null && (
                                     <div>
-                                        <p className="-mt-4 text-sm text-foreground/60 dark:text-white/60">
+                                        <p className="-mt-4 text-sm text-foreground/60">
                                             Your email address is unverified.{' '}
                                             <Link
                                                 href={send()}
                                                 as="button"
-                                                className="text-foreground dark:text-white underline decoration-foreground/30 dark:decoration-white/30 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current"
+                                                className="text-foreground underline decoration-foreground/30 underline-offset-4 transition-colors duration-300 ease-out hover:decoration-current"
                                             >
                                                 Click here to re-send the
                                                 verification email.
@@ -96,7 +96,7 @@ export default function Profile({
 
                                         {status ===
                                             'verification-link-sent' && (
-                                            <div className="mt-2 text-sm font-medium text-emerald-600 dark:text-emerald-300/80">
+                                            <div className="mt-2 text-sm font-medium text-emerald-600">
                                                 A new verification link has been
                                                 sent to your email address.
                                             </div>

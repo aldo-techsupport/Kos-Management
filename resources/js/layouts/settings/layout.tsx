@@ -4,7 +4,6 @@ import Heading from '@/components/heading';
 import { Separator } from '@/components/ui/separator';
 import { useCurrentUrl } from '@/hooks/use-current-url';
 import { cn, toUrl } from '@/lib/utils';
-import { edit as editAppearance } from '@/routes/appearance';
 import { edit } from '@/routes/profile';
 import { edit as editSecurity } from '@/routes/security';
 import type { NavItem } from '@/types';
@@ -20,22 +19,17 @@ const sidebarNavItems: NavItem[] = [
         href: editSecurity(),
         icon: null,
     },
-    {
-        title: 'Appearance',
-        href: editAppearance(),
-        icon: null,
-    },
 ];
 
 export default function SettingsLayout({ children }: PropsWithChildren) {
     const { isCurrentOrParentUrl } = useCurrentUrl();
 
     return (
-        <div className="liquid-bg-light dark:liquid-bg relative min-h-screen overflow-hidden">
+        <div className="liquid-bg relative min-h-screen overflow-hidden">
             {/* Background orbs */}
             <div className="pointer-events-none absolute inset-0">
-                <div className="liquid-orb liquid-orb-1 opacity-30 dark:opacity-50" />
-                <div className="liquid-orb liquid-orb-2 opacity-30 dark:opacity-50" />
+                <div className="liquid-orb liquid-orb-1 opacity-30" />
+                <div className="liquid-orb liquid-orb-2 opacity-30" />
             </div>
 
             <div className="relative z-10 px-4 py-6">
@@ -57,8 +51,8 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
                                     className={cn(
                                         'rounded-xl px-4 py-2.5 text-sm font-medium transition-all duration-200',
                                         isCurrentOrParentUrl(item.href)
-                                            ? 'liquid-glass-light dark:liquid-glass text-foreground dark:text-white'
-                                            : 'text-foreground/60 hover:text-foreground dark:text-white/60 dark:hover:text-white hover:bg-white/30 dark:hover:bg-white/[0.06]'
+                                            ? 'liquid-glass text-foreground'
+                                            : 'text-foreground/60 hover:text-foreground hover:bg-white/30'
                                     )}
                                 >
                                     {item.title}
@@ -71,7 +65,7 @@ export default function SettingsLayout({ children }: PropsWithChildren) {
 
                     <div className="flex-1 md:max-w-2xl">
                         <section className="max-w-xl space-y-12">
-                            <div className="liquid-glass-light dark:liquid-glass p-8">
+                            <div className="liquid-glass p-8">
                                 <div className="relative z-10">{children}</div>
                             </div>
                         </section>

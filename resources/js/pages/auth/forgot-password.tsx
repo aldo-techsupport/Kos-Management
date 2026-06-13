@@ -15,7 +15,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
             <Head title="Forgot password" />
 
             {status && (
-                <div className="mb-4 text-center text-sm font-medium text-emerald-300/80">
+                <div className="mb-4 text-center text-sm font-medium text-emerald-600">
                     {status}
                 </div>
             )}
@@ -25,7 +25,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                     {({ processing, errors }) => (
                         <>
                             <div className="grid gap-2">
-                                <Label htmlFor="email" className="text-sm font-medium text-white/80">
+                                <Label htmlFor="email" className="text-sm font-medium text-foreground/80">
                                     Email address
                                 </Label>
                                 <Input
@@ -35,7 +35,7 @@ export default function ForgotPassword({ status }: { status?: string }) {
                                     autoComplete="off"
                                     autoFocus
                                     placeholder="email@example.com"
-                                    className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
+                                    className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                 />
 
                                 <InputError message={errors.email} />
@@ -57,9 +57,9 @@ export default function ForgotPassword({ status }: { status?: string }) {
                     )}
                 </Form>
 
-                <div className="space-x-1 text-center text-sm text-white/50">
+                <div className="space-x-1 text-center text-sm text-foreground/50">
                     <span>Or, return to</span>
-                    <TextLink href={login()} className="text-white/80 hover:text-white">
+                    <TextLink href={login()} className="text-foreground/80 hover:text-foreground">
                         log in
                     </TextLink>
                 </div>

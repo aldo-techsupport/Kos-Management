@@ -12,7 +12,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
             <Head title="Email verification" />
 
             {status === 'verification-link-sent' && (
-                <div className="mb-4 text-center text-sm font-medium text-emerald-300/80">
+                <div className="mb-4 text-center text-sm font-medium text-emerald-600">
                     A new verification link has been sent to the email address
                     you provided during registration.
                 </div>
@@ -23,7 +23,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
                     <>
                         <Button
                             disabled={processing}
-                            className="liquid-glass-btn h-11 rounded-2xl border-0 px-6 text-sm font-semibold text-white shadow-none"
+                            className="liquid-glass-btn h-11 rounded-2xl border-0 px-6 text-sm font-semibold text-foreground shadow-none"
                         >
                             {processing && <Spinner />}
                             Resend verification email
@@ -31,7 +31,7 @@ export default function VerifyEmail({ status }: { status?: string }) {
 
                         <TextLink
                             href={logout()}
-                            className="mx-auto block text-sm text-white/50 hover:text-white/80"
+                            className="mx-auto block text-sm text-foreground/50 hover:text-foreground/80"
                         >
                             Log out
                         </TextLink>

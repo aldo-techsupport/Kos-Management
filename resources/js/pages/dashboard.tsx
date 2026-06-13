@@ -14,23 +14,23 @@ function GlassStatCard({
     trend?: string;
 }) {
     return (
-        <div className="liquid-glass-light dark:liquid-glass p-6">
+        <div className="liquid-glass p-6">
             <div className="relative z-10 flex items-start justify-between">
                 <div>
-                    <p className="text-sm font-medium text-foreground/60 dark:text-white/60">
+                    <p className="text-sm font-medium text-foreground/60">
                         {label}
                     </p>
-                    <p className="mt-2 text-3xl font-bold text-foreground dark:text-white">
+                    <p className="mt-2 text-3xl font-bold text-foreground">
                         {value}
                     </p>
                     {trend && (
-                        <p className="mt-1 text-xs font-medium text-emerald-600 dark:text-emerald-300/80">
+                        <p className="mt-1 text-xs font-medium text-emerald-600">
                             {trend}
                         </p>
                     )}
                 </div>
-                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-white/30 bg-white/20 backdrop-blur-sm dark:border-white/15 dark:bg-white/10">
-                    <Icon className="h-5 w-5 text-foreground/70 dark:text-white/70" />
+                <div className="flex h-11 w-11 items-center justify-center rounded-2xl border border-black/10 bg-black/5 backdrop-blur-sm">
+                    <Icon className="h-5 w-5 text-foreground/70" />
                 </div>
             </div>
         </div>
@@ -45,7 +45,7 @@ function GlassCard({
     className?: string;
 }) {
     return (
-        <div className={`liquid-glass-light dark:liquid-glass p-6 ${className}`}>
+        <div className={`liquid-glass p-6 ${className}`}>
             <div className="relative z-10">{children}</div>
         </div>
     );
@@ -55,21 +55,21 @@ export default function Dashboard() {
     return (
         <>
             <Head title="Dashboard" />
-            <div className="liquid-bg-light dark:liquid-bg relative min-h-screen overflow-hidden">
+            <div className="liquid-bg relative flex flex-1 flex-col overflow-hidden rounded-xl">
                 {/* Background orbs */}
                 <div className="pointer-events-none absolute inset-0">
-                    <div className="liquid-orb liquid-orb-1 opacity-30 dark:opacity-50" />
-                    <div className="liquid-orb liquid-orb-2 opacity-30 dark:opacity-50" />
-                    <div className="liquid-orb liquid-orb-3 opacity-20 dark:opacity-40" />
+                    <div className="liquid-orb liquid-orb-1 opacity-30" />
+                    <div className="liquid-orb liquid-orb-2 opacity-30" />
+                    <div className="liquid-orb liquid-orb-3 opacity-20" />
                 </div>
 
-                <div className="relative z-10 flex h-full flex-1 flex-col gap-6 p-6">
+                <div className="relative z-10 flex flex-1 flex-col gap-6 p-6">
                     {/* Header */}
                     <div>
-                        <h1 className="text-2xl font-bold text-foreground dark:text-white">
+                        <h1 className="text-2xl font-bold text-foreground">
                             Dashboard
                         </h1>
-                        <p className="mt-1 text-sm text-foreground/60 dark:text-white/60">
+                        <p className="mt-1 text-sm text-foreground/60">
                             Overview properti kos-kosan Anda
                         </p>
                     </div>
@@ -105,7 +105,7 @@ export default function Dashboard() {
                     {/* Main Content Area */}
                     <div className="grid flex-1 gap-6 lg:grid-cols-[1.5fr_1fr]">
                         <GlassCard>
-                            <h2 className="mb-4 text-lg font-semibold text-foreground dark:text-white">
+                            <h2 className="mb-4 text-lg font-semibold text-foreground">
                                 Aktivitas Terbaru
                             </h2>
                             <div className="space-y-4">
@@ -118,17 +118,17 @@ export default function Dashboard() {
                                 ].map((item, i) => (
                                     <div
                                         key={i}
-                                        className="flex items-center justify-between rounded-xl border border-white/20 bg-white/10 p-3 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]"
+                                        className="flex items-center justify-between rounded-xl border border-black/[0.06] bg-black/[0.03] p-3 backdrop-blur-sm"
                                     >
                                         <div>
-                                            <p className="text-sm font-medium text-foreground dark:text-white/90">
+                                            <p className="text-sm font-medium text-foreground/90">
                                                 {item.action}
                                             </p>
-                                            <p className="text-xs text-foreground/60 dark:text-white/50">
+                                            <p className="text-xs text-foreground/60">
                                                 {item.detail}
                                             </p>
                                         </div>
-                                        <span className="text-xs text-foreground/50 dark:text-white/40">
+                                        <span className="text-xs text-foreground/50">
                                             {item.time}
                                         </span>
                                     </div>
@@ -138,7 +138,7 @@ export default function Dashboard() {
 
                         <div className="flex flex-col gap-6">
                             <GlassCard>
-                                <h2 className="mb-4 text-lg font-semibold text-foreground dark:text-white">
+                                <h2 className="mb-4 text-lg font-semibold text-foreground">
                                     Kamar Tersedia
                                 </h2>
                                 <div className="space-y-3">
@@ -149,17 +149,17 @@ export default function Dashboard() {
                                     ].map((item, i) => (
                                         <div
                                             key={i}
-                                            className="flex items-center justify-between rounded-xl border border-white/20 bg-white/10 p-3 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.04]"
+                                            className="flex items-center justify-between rounded-xl border border-black/[0.06] bg-black/[0.03] p-3 backdrop-blur-sm"
                                         >
                                             <div>
-                                                <p className="text-sm font-medium text-foreground dark:text-white/90">
+                                                <p className="text-sm font-medium text-foreground/90">
                                                     {item.room}
                                                 </p>
-                                                <p className="text-xs text-foreground/60 dark:text-white/50">
+                                                <p className="text-xs text-foreground/60">
                                                     {item.type}
                                                 </p>
                                             </div>
-                                            <span className="text-xs font-medium text-foreground/70 dark:text-white/60">
+                                            <span className="text-xs font-medium text-foreground/70">
                                                 {item.price}
                                             </span>
                                         </div>
@@ -168,7 +168,7 @@ export default function Dashboard() {
                             </GlassCard>
 
                             <GlassCard>
-                                <h2 className="mb-4 text-lg font-semibold text-foreground dark:text-white">
+                                <h2 className="mb-4 text-lg font-semibold text-foreground">
                                     Reminder
                                 </h2>
                                 <div className="space-y-3">
@@ -179,12 +179,12 @@ export default function Dashboard() {
                                     ].map((item, i) => (
                                         <div
                                             key={i}
-                                            className="flex items-center justify-between rounded-xl border border-amber-200/20 bg-amber-100/10 p-3 dark:border-amber-200/10 dark:bg-amber-200/[0.04]"
+                                            className="flex items-center justify-between rounded-xl border border-amber-300/30 bg-amber-100/30 p-3"
                                         >
-                                            <p className="text-sm text-foreground/80 dark:text-white/70">
+                                            <p className="text-sm text-foreground/80">
                                                 {item.text}
                                             </p>
-                                            <span className="text-xs font-medium text-amber-700 dark:text-amber-200/80">
+                                            <span className="text-xs font-medium text-amber-700">
                                                 {item.date}
                                             </span>
                                         </div>

@@ -30,7 +30,7 @@ export default function ConfirmPassword() {
                 {({ processing, errors }) => (
                     <div className="space-y-6">
                         <div className="grid gap-2">
-                            <Label htmlFor="password" className="text-sm font-medium text-white/80">
+                            <Label htmlFor="password" className="text-sm font-medium text-foreground/80">
                                 Password
                             </Label>
                             <PasswordInput
@@ -39,7 +39,7 @@ export default function ConfirmPassword() {
                                 placeholder="Password"
                                 autoComplete="current-password"
                                 autoFocus
-                                className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
+                                className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                             />
 
                             <InputError message={errors.password} />

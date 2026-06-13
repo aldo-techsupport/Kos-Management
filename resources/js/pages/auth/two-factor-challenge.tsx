@@ -70,7 +70,7 @@ export default function TwoFactorChallenge() {
                                         placeholder="Enter recovery code"
                                         autoFocus={showRecoveryInput}
                                         required
-                                        className="liquid-glass-input h-11 border-0 bg-white/[0.06] px-4 text-white placeholder:text-white/40 focus-visible:ring-0"
+                                        className="liquid-glass-input h-11 border-0 px-4 text-foreground placeholder:text-foreground/40 focus-visible:ring-0"
                                     />
                                     <InputError
                                         message={errors.recovery_code}
@@ -113,11 +113,11 @@ export default function TwoFactorChallenge() {
                                 Continue
                             </Button>
 
-                            <div className="text-center text-sm text-white/50">
+                            <div className="text-center text-sm text-foreground/50">
                                 <span>or you can </span>
                                 <button
                                     type="button"
-                                    className="cursor-pointer text-white/80 underline decoration-white/30 underline-offset-4 transition-colors duration-300 ease-out hover:text-white hover:decoration-white/60"
+                                    className="cursor-pointer text-foreground/80 underline decoration-foreground/30 underline-offset-4 transition-colors duration-300 ease-out hover:text-foreground hover:decoration-foreground/60"
                                     onClick={() =>
                                         toggleRecoveryMode(clearErrors)
                                     }
